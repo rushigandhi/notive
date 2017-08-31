@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private final int RC_SIGN_IN = 1;
 
     //Members
-    private Button mGoogleBtn;
+    private SignInButton mGoogleBtn;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseReference;
@@ -59,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //UI Members
         mProgressDialog = new ProgressDialog(this);
-        mGoogleBtn = (Button) findViewById(R.id.googleBtn);
+        mGoogleBtn = (SignInButton) findViewById(R.id.googleBtn);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
