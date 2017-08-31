@@ -26,7 +26,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //Acquiring an instance of FirebaseAuth, and localizing it
         mAuth = FirebaseAuth.getInstance();
-        
+
         //Initializing a FirebaseAuth StateListener
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             //Overriding stateChanged method to determine when the state of auth has varied
