@@ -1,5 +1,6 @@
 package paperbaglabs.school_android;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +23,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity {
+
+public class LoginActivity extends AppCompatActivity {
 
     private Button mGoogleBtn;
 
@@ -33,9 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    private DatabaseReference databaseReference;
+
+
     private static final String TAG = "Login Activity";
 
     private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +52,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
 
+        progressDialog = new ProgressDialog(this);
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null){
-                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 }
             }
         };
@@ -64,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(MainActivity.this, "You got an error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "You got an error", Toast.LENGTH_LONG).show();
 
                     }
                 })
@@ -112,6 +123,9 @@ public class MainActivity extends AppCompatActivity {
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
 
+        progressDialog.setMessage("Signing in please wait...");
+        progressDialog.show();
+
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -122,15 +136,53 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
+                            String name = user.getDisplayName();
+                            String email = user.getEmail();
+                            String school = name.substring(name.indexOf('-') + 1);
+
+                            databaseReference = FirebaseDatabase.getInstance().getReference();
+
+
+                            if(email.startsWith("p") && email.endsWith("@pdsb.net")){
+
+                                databaseReference.child(school).child("teachers").child(user.getUid()).child("name").setValue(name);
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
+
+                            }
+                            else if(!(email.startsWith("p")) && email.endsWith("@pdsb.net")){
+
+                                databaseReference.child(school).child("students").child(user.getUid()).child("name").setValue(name);
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
+                            }
+                            else{
+
+                                user.delete()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d(TAG, "User account deleted.");
+                                                }
+                                            }
+                                        });
+                                Toast.makeText(LoginActivity.this, "Please login with a @pdsb.net account",
+                                        Toast.LENGTH_LONG).show();
+
+                            }
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
 
                         }
 
                         // ...
+                        progressDialog.dismiss();
+
                     }
                 });
     }
