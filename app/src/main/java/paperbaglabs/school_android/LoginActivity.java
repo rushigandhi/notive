@@ -29,31 +29,25 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //Constants
+    private final String TAG = "Login Activity";
+    private final int RC_SIGN_IN = 1;
+
+    //Members
     private Button mGoogleBtn;
-
-    private static final int RC_SIGN_IN = 1;
-
     private GoogleApiClient mGoogleApiClient;
-
     private FirebaseAuth mAuth;
-
-    private DatabaseReference databaseReference;
-
-
-    private static final String TAG = "Login Activity";
-
+    private DatabaseReference mDatabaseReference;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
-    private ProgressDialog progressDialog;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Firebase Authentication Setup
         mAuth = FirebaseAuth.getInstance();
-
-        progressDialog = new ProgressDialog(this);
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -63,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
+        //UI Members
+        mProgressDialog = new ProgressDialog(this);
         mGoogleBtn = (Button) findViewById(R.id.googleBtn);
 
         // Configure Google Sign In
@@ -71,12 +67,13 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
+        //Creating a client for the GoogleApi using the Api Builder
         mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
                 .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    //Error Handling
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(LoginActivity.this, "You got an error", Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(LoginActivity.this, "Error: Connection Failed!", Toast.LENGTH_LONG).show();
                     }
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -88,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
                 signIn();
             }
         });
-
     }
 
     @Override
@@ -123,8 +119,8 @@ public class LoginActivity extends AppCompatActivity {
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
 
-        progressDialog.setMessage("Signing in please wait...");
-        progressDialog.show();
+        mProgressDialog.setMessage("Signing in please wait...");
+        mProgressDialog.show();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -136,42 +132,34 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
+                            //Storing user details locally
                             String name = user.getDisplayName();
                             String email = user.getEmail();
                             String school = name.substring(name.indexOf('-') + 1);
 
-                            databaseReference = FirebaseDatabase.getInstance().getReference();
+                            mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
+                            //Example Teacher Email: p69696969@pdsb.net
+                            //Example Student Email: 696969@pdsb.net
 
-                            if(email.startsWith("p") && email.endsWith("@pdsb.net")){
+                            if(email.startsWith("p") && email.endsWith("@pdsb.net"))
+                                switchToLoginAndPopulateDb(user, school, name, "teachers");
 
-                                databaseReference.child(school).child("teachers").child(user.getUid()).child("name").setValue(name);
-                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            else if(!(email.startsWith("p")) && email.endsWith("@pdsb.net"))
+                                switchToLoginAndPopulateDb(user, school, name, "students");
 
-
-                            }
-                            else if(!(email.startsWith("p")) && email.endsWith("@pdsb.net")){
-
-                                databaseReference.child(school).child("students").child(user.getUid()).child("name").setValue(name);
-                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-
-                            }
                             else{
-
                                 user.delete()
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
+                                                if (task.isSuccessful())
                                                     Log.d(TAG, "User account deleted.");
-                                                }
                                             }
                                         });
                                 Toast.makeText(LoginActivity.this, "Please login with a @pdsb.net account",
                                         Toast.LENGTH_LONG).show();
-
                             }
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -181,9 +169,14 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         // ...
-                        progressDialog.dismiss();
+                        mProgressDialog.dismiss();
 
                     }
                 });
+    }
+    //Type == "students" or "teachers"
+    private void switchToLoginAndPopulateDb(FirebaseUser user, String school, String name, String type){
+        mDatabaseReference.child(school).child(type).child(user.getUid()).child("name").setValue(name);
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
     }
 }

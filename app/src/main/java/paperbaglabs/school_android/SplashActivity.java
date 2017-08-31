@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-
-
 public class SplashActivity extends AppCompatActivity {
 
     @Override
