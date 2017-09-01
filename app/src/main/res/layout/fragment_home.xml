@@ -4,10 +4,17 @@
     android:layout_height="match_parent"
     tools:context="paperbaglabs.school_android.HomeFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_post"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_post"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
