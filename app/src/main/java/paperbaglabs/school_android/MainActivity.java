@@ -33,12 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    //TODO: Pull to Refresh
-    // TODO: Fix Feed Order. The Feed should be in cornological order
+    
     // TODO: Improve Design
     // TODO: Uploading Image Crashes the app (Debug this)
-    
 
 
     private FirebaseAuth.AuthStateListener mAuthStateListener;

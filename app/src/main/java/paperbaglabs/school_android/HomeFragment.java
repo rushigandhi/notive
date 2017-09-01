@@ -68,7 +68,13 @@ public class HomeFragment extends Fragment {
     private void init() {
         mPostRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerview_post);
         mSwipeRefreshLayout = (SwipeRefreshLayout) mRootView.findViewById(R.id.swipeRefreshLayout);
-        mPostRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        //Sets in reverse
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        mPostRecyclerView.setLayoutManager(linearLayoutManager);
+
         setupAdapter();
         mPostRecyclerView.setAdapter(mPostAdapter);
 
