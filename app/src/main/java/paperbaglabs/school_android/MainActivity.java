@@ -33,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    
+
     // TODO: Improve Design
     // TODO: Uploading Image Crashes the app (Debug this)
 
