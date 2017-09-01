@@ -59,7 +59,8 @@ public class MainActivity extends BaseActivity
 
         init();
 
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment())
+                .commit();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

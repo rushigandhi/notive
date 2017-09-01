@@ -52,8 +52,8 @@ public class HomeFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  PostCreateDialog dialog = new PostCreateDialog();
-               // dialog.show(getFragmentManager(), null);
+              PostCreateDialog dialog = new PostCreateDialog();
+               dialog.show(getFragmentManager(), null);
             }
         });
         init();
@@ -108,9 +108,9 @@ public class HomeFragment extends Fragment {
                 viewHolder.postCommentLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                     //   Intent intent = new Intent(getContext(), PostActivity.class);
-                       // intent.putExtra(Constants.EXTRA_POST, model);
-                      //  startActivity(intent);
+                   //  Intent intent = new Intent(getContext(), PostActivity.class);
+                     //  intent.putExtra(Constants.EXTRA_POST, model);
+                     //  startActivity(intent);
                     }
                 });
             }
