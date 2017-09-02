@@ -66,7 +66,7 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         ) {
             @Override
             protected void populateViewHolder(CommentHolder viewHolder, Comment model, int position) {
-                viewHolder.setUsername(model.getUser().getUser());
+               viewHolder.setUsername(model.getUser().getUser()); //Returns Null For Some Reason.
                 viewHolder.setComment(model.getComment());
                 viewHolder.setTime(DateUtils.getRelativeTimeSpanString(model.getTimeCreated()));
 

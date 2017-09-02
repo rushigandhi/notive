@@ -153,9 +153,13 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment())
+                    .commit();
+
         } else if (id == R.id.nav_share) {
-            setTitle("Info");
+            setTitle("About Our App");
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new InfoFragment())
+                    .commit();
 
 
         } else if (id == R.id.nav_send) {
