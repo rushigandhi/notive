@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import paperbaglabs.school_android.R;
+import paperbaglabs.school_android.models.Comment;
 import paperbaglabs.school_android.models.Post;
 import paperbaglabs.school_android.models.PostHolder;
 import paperbaglabs.school_android.variables.Constants;
@@ -130,9 +131,9 @@ public class HomeFragment extends Fragment {
                 viewHolder.getPostCommentLayout().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                   //  Intent intent = new Intent(getContext(), PostActivity.class);
-                     //  intent.putExtra(Constants.EXTRA_POST, model);
-                     //  startActivity(intent);
+                    Intent intent = new Intent(getContext(), CommentActivity.class);
+                      intent.putExtra(Constants.EXTRA_POST, model);
+                      startActivity(intent);
                     }
                 });
                 mSwipeRefreshLayout.setRefreshing(false);
