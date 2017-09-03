@@ -7,6 +7,8 @@ public class User implements Serializable {
     private String email;
     private String photoUrl;
     private String uid;
+    private String type;
+
 
     public User() {
     }
@@ -51,4 +53,14 @@ public class User implements Serializable {
     public void setUid(String uid) {
         this.uid = uid;
     }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+
 }

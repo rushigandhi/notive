@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 
 import paperbaglabs.school_android.models.User;
@@ -17,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -75,18 +78,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
+                            // Initializing User Object
                             User user = new User();
+
+                            // Storing the User's Photo
                             String photoUrl = null;
                             if (account.getPhotoUrl() != null) {
                                 user.setPhotoUrl(account.getPhotoUrl().toString());
                             }
-                            //Storing user details locally
+                            // Storing user details locally
                             user.setEmail(account.getEmail());
                             user.setUser(account.getDisplayName());
                             user.setUid(mAuth.getCurrentUser().getUid());
 
+                            // Checking and Storing if the User is a Teacher
+                            if(account.getEmail().startsWith("p") && account.getEmail().endsWith("@pdsb.net")){
+
+                                user.setType("teacher");
+
                             // Pushes User Object to Firebase
-                            FirebaseUtils.getUserRef(account.getEmail().replace(".", ","))
+                            FirebaseUtils.getUserRef(account.getEmail())
                                     .setValue(user, new DatabaseReference.CompletionListener() {
                                         @Override
                                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -94,11 +105,47 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                             finish();
                                         }
                                     });
+
+                                Toast.makeText(LoginActivity.this, "Welcome",
+                                        Toast.LENGTH_LONG).show();
+                            }
+
+                            // Checking and Storing if the User is a Student
+                            else if(!(account.getEmail().startsWith("p")) && account.getEmail().endsWith("@pdsb.net")){
+
+                                user.setType("student");
+
+                                // Pushes User Object to Firebase
+                                FirebaseUtils.getUserRef(account.getEmail())
+                                        .setValue(user, new DatabaseReference.CompletionListener() {
+                                            @Override
+                                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                                mFirebaseUser = mAuth.getCurrentUser();
+                                                finish();
+                                            }
+                                        });
+
+                                Toast.makeText(LoginActivity.this, "Welcome",
+                                        Toast.LENGTH_LONG).show();
+                            }
+
+                            // Deleting Non-Peel Account
+                            else{
+
+                                FirebaseUtils.getCurrentUser().delete();
+                                Toast.makeText(LoginActivity.this, "Please login with a Peel @pdsb.net account",
+                                        Toast.LENGTH_LONG).show();
+                                dismissProgressDialog();
+
+                            }
+
                         } else {
                             dismissProgressDialog();
                         }
                     }
                 });
+
+        dismissProgressDialog();
     }
 }
 
