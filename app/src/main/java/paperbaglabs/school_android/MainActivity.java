@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -165,6 +166,9 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_send) {
             mAuth = FirebaseAuth.getInstance();
             mAuth.signOut();
+
+            // Deleting the Cached Email so the Google SignIn Pop-Up Appears Every Time
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

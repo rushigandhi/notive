@@ -15,6 +15,8 @@ import paperbaglabs.school_android.variables.FirebaseUtils;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -97,7 +99,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 user.setType("teacher");
 
                             // Pushes User Object to Firebase
-                            FirebaseUtils.getUserRef(account.getEmail())
+                            FirebaseUtils.getUserRef(account.getEmail().replace(".", ","))
                                     .setValue(user, new DatabaseReference.CompletionListener() {
                                         @Override
                                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -116,7 +118,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 user.setType("student");
 
                                 // Pushes User Object to Firebase
-                                FirebaseUtils.getUserRef(account.getEmail())
+                                FirebaseUtils.getUserRef(account.getEmail().replace(".", ","))
                                         .setValue(user, new DatabaseReference.CompletionListener() {
                                             @Override
                                             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -135,6 +137,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 FirebaseUtils.getCurrentUser().delete();
                                 Toast.makeText(LoginActivity.this, "Please login with a Peel @pdsb.net account",
                                         Toast.LENGTH_LONG).show();
+
+                                // Deleting the Cached Email so the Google SignIn Pop-Up Appears Every time
+                                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
                                 dismissProgressDialog();
 
                             }
