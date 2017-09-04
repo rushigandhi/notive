@@ -66,12 +66,14 @@ public class CommentActivity extends AppCompatActivity implements View.OnClickLi
         ) {
             @Override
             protected void populateViewHolder(CommentHolder viewHolder, Comment model, int position) {
-               viewHolder.setUsername(model.getUser().getUser()); //Returns Null For Some Reason.
+
+                User user = new User();
+               viewHolder.setUsername(user.getUser()); //Changed to user object
                 viewHolder.setComment(model.getComment());
                 viewHolder.setTime(DateUtils.getRelativeTimeSpanString(model.getTimeCreated()));
 
                 Glide.with(CommentActivity.this)
-                        .load(model.getUser().getPhotoUrl())
+                        .load(user.getPhotoUrl()) //Changed to user object
                         .into(viewHolder.commentOwnerDisplay);
             }
         };
