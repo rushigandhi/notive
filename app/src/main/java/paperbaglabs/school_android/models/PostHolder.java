@@ -1,12 +1,18 @@
 package paperbaglabs.school_android.models;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import paperbaglabs.school_android.R;
+import paperbaglabs.school_android.service.AverageColour;
 
 public class PostHolder extends RecyclerView.ViewHolder {
     private ImageView postOwnerDisplayImageView;
@@ -18,6 +24,7 @@ public class PostHolder extends RecyclerView.ViewHolder {
     private LinearLayout postCommentLayout;
     private TextView postNumLikesTextView;
     private TextView postNumCommentsTextView;
+    private LinearLayout sideBar;
 
     public PostHolder(View itemView) {
         super(itemView);
@@ -30,6 +37,7 @@ public class PostHolder extends RecyclerView.ViewHolder {
         postNumLikesTextView = (TextView) itemView.findViewById(R.id.tv_likes);
         postNumCommentsTextView = (TextView) itemView.findViewById(R.id.tv_comments);
         postTextTextView = (TextView) itemView.findViewById(R.id.tv_post_text);
+        sideBar = (LinearLayout) itemView.findViewById(R.id.side_bar);
     }
 
     public ImageView getPostDisplayImageView(){
@@ -66,6 +74,11 @@ public class PostHolder extends RecyclerView.ViewHolder {
 
     public void setPostText(String text) {
         postTextTextView.setText(text);
+    }
+
+    public void averageColour(){
+        AverageColour colour = new AverageColour(getPostOwnerDisplayImageView(), sideBar);
+        colour.start();
     }
 
 }

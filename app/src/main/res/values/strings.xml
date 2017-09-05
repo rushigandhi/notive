@@ -10,4 +10,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="copy_right">Copyrights © %1$d</string>
 
+    <string name="name">Notive</string>
+    <string name="slug">Announcements, made easy</string>
+    <string name="google_button">Sign in with Google</string>
+
 </resources>

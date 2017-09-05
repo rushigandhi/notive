@@ -3,5 +3,9 @@
     <color name="colorPrimary">#00AA8D</color>
     <color name="colorPrimaryDark">#008975</color>
     <color name="colorAccent">#00BF9A</color>
+    <color name="wood">#DEB887</color>
+    <color name="chalkboard">#244926</color>
+    <color name="icons">#000</color>
+    <color name="card_header">@color/colorPrimary</color>
 
 </resources>
