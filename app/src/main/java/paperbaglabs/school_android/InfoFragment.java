@@ -44,7 +44,7 @@ public class InfoFragment extends Fragment {
                 .isRTL(false)
               //  .setImage(R.drawable.logo) TODO: Add Logo
                 .addItem(new Element().setTitle("Version 0.13"))
-                .setDescription("Notify is an app that helps you stay informed of important announcements from all the organizations in your life. ")
+                .setDescription("Notive is an app that helps you stay informed of important announcements from all the organizations in your life. ")
                 .addGroup("Connect with us")
                 .addEmail("hello@paperbaglabs.com")
                 .addWebsite("https://paperbaglabs.com/")
