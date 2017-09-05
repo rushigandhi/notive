@@ -95,7 +95,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             }
                             // Storing user details locally
                             user.setEmail(account.getEmail());
-                            user.setUser(account.getDisplayName());
+                            user.setUser(account.getDisplayName().substring(0, account.getDisplayName().indexOf('-') - 1));
                             user.setUid(mAuth.getCurrentUser().getUid());
 
                             // Checking and Storing if the User is a Teacher
