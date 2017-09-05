@@ -30,6 +30,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 public class MainActivity extends BaseActivity
@@ -52,6 +53,7 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.home_main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        FirebaseMessaging.getInstance().subscribeToTopic("notifications");
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override

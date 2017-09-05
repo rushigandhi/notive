@@ -1,9 +1,10 @@
-// imports firebase-functions module
+//import firebase functions modules
 const functions = require('firebase-functions');
-// imports firebase-admin module
+//import admin module
 const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
+
 
 /* Listens for new messages added to /messages/:pushId and sends a notification to subscribed users */
 exports.pushNotification = functions.database.ref('/posts/{pushId}').onWrite( event => {
@@ -13,13 +14,13 @@ console.log('Push notification event triggered');
 /* Create a notification and data payload. They contain the notification information, and message to be sent respectively */ 
     const payload = {
         notification: {
-            title: 'App Name',
-            body: "New message",
+            title: 'New notive',
+            body: valueObject.postText,
             sound: "default"
         },
         data: {
-            title: valueObject.title,
-            message: valueObject.message
+            title: valueObject.user.user,
+            message: valueObject.postText
         }
     };
 /* Create an options object that contains the time to live for the notification and the priority. */
@@ -29,10 +30,3 @@ console.log('Push notification event triggered');
     };
 return admin.messaging().sendToTopic("notifications", payload, options);
 });
-
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });

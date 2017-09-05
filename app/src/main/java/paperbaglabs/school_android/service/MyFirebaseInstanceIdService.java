@@ -3,6 +3,7 @@ package paperbaglabs.school_android.service;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
  * Created by rushi on 2017-09-04.
@@ -14,17 +15,13 @@ public class MyFirebaseInstanceIdService extends com.google.firebase.iid.Firebas
 
     @Override
     public void onTokenRefresh() {
+        // If you need to handle the generation of a token, initially or
+        // after a refresh this is where you should do that.
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "FCM Token: " + token);
 
-        //Getting registration token
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        // Once a token is generated, we subscribe to topic.
+        FirebaseMessaging.getInstance().subscribeToTopic("notifications");
 
-        //Displaying token in logcat
-        Log.e(TAG, "Refreshed token: " + refreshedToken);
-
-    }
-
-    private void sendRegistrationToServer(String token) {
-        //You can implement this method to store the token on your server
-        //Not required for current project
     }
 }
