@@ -136,6 +136,8 @@ public class HomeFragment extends Fragment {
                       startActivity(intent);
                     }
                 });
+// --------------------------- COLOUR TRIAL ---------------------------
+//                viewHolder.averageColour();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         };
