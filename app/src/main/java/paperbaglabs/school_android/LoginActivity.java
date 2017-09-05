@@ -15,6 +15,7 @@ import paperbaglabs.school_android.variables.FirebaseUtils;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +36,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.googleBtn).setOnClickListener(this);
+        SignInButton googleButton = (SignInButton)findViewById(R.id.googleBtn);
+        googleButton.setSize(SignInButton.SIZE_WIDE);
+        googleButton.setColorScheme(SignInButton.COLOR_LIGHT);
+
     }
 
     @Override
