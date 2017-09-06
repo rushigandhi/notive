@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:orientation="horizontal"
-            android:paddingBottom="8dp">
+            android:paddingBottom="15dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_post_owner_display"
@@ -30,7 +30,7 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="7dp"
                 android:src="@drawable/facebook_avatar" />
 
             <TextView

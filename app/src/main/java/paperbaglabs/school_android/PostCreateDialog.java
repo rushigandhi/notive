@@ -86,10 +86,7 @@ public class PostCreateDialog extends DialogFragment implements View.OnClickList
                         mPost.setPostText(text);
 
                         if (mSelectedUri != null) {
-                            FirebaseUtils.getImageSRef()
-                                    .child(mSelectedUri.getLastPathSegment())
-                                    .putFile(mSelectedUri)
-                                    .addOnSuccessListener(getActivity(),
+                            FirebaseUtils.getImageSRef().child(mSelectedUri.getLastPathSegment()).putFile(mSelectedUri).addOnSuccessListener(getActivity(),
                                             new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                 @Override
                                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -127,7 +124,7 @@ public class PostCreateDialog extends DialogFragment implements View.OnClickList
 
     private void selectImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/jpeg");
+        intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
         startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
     }

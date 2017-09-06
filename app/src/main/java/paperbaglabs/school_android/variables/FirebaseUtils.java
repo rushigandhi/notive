@@ -50,7 +50,7 @@ public class FirebaseUtils {
     }
 
     public static StorageReference getImageSRef(){
-        return FirebaseStorage.getInstance().getReference(Constants.POST_IMAGES);
+        return FirebaseStorage.getInstance().getReference().child(Constants.POST_IMAGES);
     }
 
     public static DatabaseReference getMyPostRef(){
