@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -39,6 +41,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         SignInButton googleButton = (SignInButton)findViewById(R.id.googleBtn);
         googleButton.setSize(SignInButton.SIZE_WIDE);
         googleButton.setColorScheme(SignInButton.COLOR_LIGHT);
+
+        TextView t2 = (TextView) findViewById(R.id.terms);
+        t2.setMovementMethod(LinkMovementMethod.getInstance());
 
     }
 

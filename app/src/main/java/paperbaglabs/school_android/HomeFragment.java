@@ -62,6 +62,7 @@ public class HomeFragment extends Fragment {
                dialog.show(getFragmentManager(), null);
             }
         });
+        getActivity().setTitle(R.string.title_activity_main);
         init();
         return mRootView;
     }

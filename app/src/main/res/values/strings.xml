@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Notive</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Home</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -13,5 +13,6 @@
     <string name="name">notive</string>
     <string name="slug">Announcements, made easy</string>
     <string name="google_button">Sign in with Google</string>
+    <string name="terms_and_policy">Our <a href="http://www.google.com">Terms</a> and <a href="http://www.google.com">Policy</a>.</string>
 
 </resources>

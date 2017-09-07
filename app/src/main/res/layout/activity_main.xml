@@ -10,40 +10,81 @@
         android:weightSum="4"
         tools:context="paperbaglabs.school_android.LoginActivity">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></LinearLayout>
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="187dp"
             android:layout_gravity="center_vertical"
-            app:srcCompat="@drawable/notive_text_logo" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:srcCompat="@drawable/notive_text_logo_dense" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"></LinearLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimaryDark">
-
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/googleBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/google_button"
-                android:visibility="visible" />
-
+            android:layout_weight="1.55"
+            android:padding="5dp"
+            android:background="@color/colorPrimaryDark"
+            >
             <LinearLayout
-                android:id="@+id/sign_out_and_disconnect"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                >
+
+                <com.google.android.gms.common.SignInButton
+                    android:id="@+id/googleBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/google_button"
+                    android:visibility="visible"
+                    android:layout_marginBottom="10dp"
+                    />
+
+
+                <TextView
+                    android:id="@+id/terms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/terms_and_policy"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@android:color/white"
+                    android:textColorLink="@android:color/white"
+                    />
+
+
+                <LinearLayout
+                    android:id="@+id/sign_out_and_disconnect"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </RelativeLayout>
+
 
     </LinearLayout>
