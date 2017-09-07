@@ -76,6 +76,10 @@ public class PostHolder extends RecyclerView.ViewHolder {
         postTextTextView.setText(text);
     }
 
+    public LinearLayout getSideBar(){
+        return sideBar;
+    }
+
     public void averageColour(){
         AverageColour colour = new AverageColour(getPostOwnerDisplayImageView(), sideBar);
         colour.start();

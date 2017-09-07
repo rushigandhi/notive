@@ -11,6 +11,7 @@ public class Post implements Serializable {
     private long numLikes;
     private long numComments;
     private long timeCreated;
+    private int color;
 
     public Post() {
     }
@@ -81,5 +82,12 @@ public class Post implements Serializable {
 
     public void setTimeCreated(long timeCreated) {
         this.timeCreated = timeCreated;
+    }
+
+    public void setColor(int color){
+        this.color = color;
+    }
+    public int getColor(){
+        return color;
     }
 }

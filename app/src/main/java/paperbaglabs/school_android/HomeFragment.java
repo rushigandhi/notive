@@ -2,6 +2,7 @@ package paperbaglabs.school_android;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,8 @@ public class HomeFragment extends Fragment {
     private FirebaseRecyclerAdapter<Post, PostHolder> mPostAdapter;
     private RecyclerView mPostRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    int currentNumberOfElements = 0;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -105,6 +108,7 @@ public class HomeFragment extends Fragment {
                 viewHolder.setTime(DateUtils.getRelativeTimeSpanString(model.getTimeCreated()));
                 viewHolder.setUsername(model.getUser().getUser());
                 viewHolder.setPostText(model.getPostText());
+                viewHolder.getSideBar().setBackgroundColor(model.getColor());
 
                 Glide.with(getActivity())
                         .load(model.getUser().getPhotoUrl())

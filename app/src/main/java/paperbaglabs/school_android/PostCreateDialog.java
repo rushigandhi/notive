@@ -4,6 +4,7 @@ package paperbaglabs.school_android;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.google.firebase.storage.UploadTask;
 import static android.app.Activity.RESULT_OK;
 
 public class PostCreateDialog extends DialogFragment implements View.OnClickListener {
+    private final String[] colors = {"#00AA8D", "#2196F3", "#3F51B5", "#673AB7", "#66BB6A", "#F48FB1"};
     private static final int RC_PHOTO_PICKER = 1;
     private Post mPost;
     private ProgressDialog mProgressDialog;
@@ -84,6 +86,7 @@ public class PostCreateDialog extends DialogFragment implements View.OnClickList
                         mPost.setTimeCreated(System.currentTimeMillis());
                         mPost.setPostId(postId);
                         mPost.setPostText(text);
+                        mPost.setColor(getNextColour());
 
                         if (mSelectedUri != null) {
                             FirebaseUtils.getImageSRef().child(mSelectedUri.getLastPathSegment()).putFile(mSelectedUri).addOnSuccessListener(getActivity(),
@@ -138,5 +141,9 @@ public class PostCreateDialog extends DialogFragment implements View.OnClickList
                 mPostDisplay.setImageURI(mSelectedUri);
             }
         }
+    }
+
+    public int getNextColour(){
+        return Color.parseColor(colors[(int)(Math.random() * colors.length)]);
     }
 }
