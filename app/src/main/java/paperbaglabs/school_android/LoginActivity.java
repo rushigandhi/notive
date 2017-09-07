@@ -100,12 +100,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             }
                             // Storing user details locally
                             user.setEmail(account.getEmail());
-                            user.setUser(account.getDisplayName().substring(0, account.getDisplayName().indexOf('-') - 1));
+                            user.setUser(account.getDisplayName());
                             user.setUid(mAuth.getCurrentUser().getUid());
 
                             // Checking and Storing if the User is a Teacher
                             if(account.getEmail().startsWith("p") && account.getEmail().endsWith("@pdsb.net")){
 
+                                user.setUser(account.getDisplayName().substring(0, account.getDisplayName().indexOf('-') - 1));
                                 user.setType("teacher");
 
                             // Pushes User Object to Firebase
@@ -125,6 +126,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             // Checking and Storing if the User is a Student
                             else if(!(account.getEmail().startsWith("p")) && account.getEmail().endsWith("@pdsb.net")){
 
+                                user.setUser(account.getDisplayName().substring(0, account.getDisplayName().indexOf('-') - 1));
                                 user.setType("student");
 
                                 // Pushes User Object to Firebase
