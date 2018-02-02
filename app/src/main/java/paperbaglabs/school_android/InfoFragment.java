@@ -43,7 +43,7 @@ public class InfoFragment extends Fragment {
         View aboutPage = new AboutPage(getActivity())
                 .isRTL(false)
               //  .setImage(R.drawable.logo) TODO: Add Logo
-                .addItem(new Element().setTitle("Version 0.13"))
+                .addItem(new Element().setTitle("Version 1.00"))
                 .setDescription("Notive is an app that helps you stay informed of important announcements from all the organizations in your life. ")
                 .addGroup("Connect with us")
                 .addEmail("hello@paperbaglabs.com")
@@ -72,7 +72,7 @@ public class InfoFragment extends Fragment {
         copyRightsElement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "V.0.53 --> <3", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "V.1.00 --> <3", Toast.LENGTH_LONG).show();
             }
         });
         return copyRightsElement;
